@@ -1,0 +1,44 @@
+﻿@model IEnumerable<User>
+
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <div class="text-center">
+            <h2>Users</h2>
+        </div>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Age</th>
+                    <th scope="col">Gender</th>
+                    <th>
+                        <a asp-action="AddOrEditUser" class="btn btn-outline-dark">New</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.UserFirstName)</td>
+                        <td> @Html.DisplayFor(modelItem => item.UserLastName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.UserAge)</td>
+                        <td> @Html.DisplayFor(modelItem => item.UserGender)</td>
+
+                        <td>
+                            <form asp-action="Delete" asp-route-id="@item.UserID">
+                                <a asp-action="AddOrEditUser" asp-route-id="@item.UserID" class="btn btn-outline-warning">Update</a>
+
+                                <button type="submit" class="btn btn-outline-danger" onclick="return confirm('Are you sure that you want to delete this user?')">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+
+        </table>
+
+    </div>
+
+</div>

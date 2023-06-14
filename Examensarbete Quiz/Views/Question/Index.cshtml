@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Examensarbete_Quiz.Models.Question>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Select the options you think are correct and then click on submit when you're ready.</h1>
+
+<table class="table">
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.QuestionID) )    @Html.DisplayFor(modelItem => item.QuestionText) ?
+                </td>
+                <td>
+                    <input type="radio" id="Option1" name=" @Html.DisplayFor(modelItem => item.QuestionID)" class="rb" value="   @Html.DisplayFor(modelItem => item.Option1)" />
+                    @Html.DisplayFor(modelItem => item.Option1)
+                    <input type="radio" id="Option2" name=" @Html.DisplayFor(modelItem => item.QuestionID)" class="rb" value="   @Html.DisplayFor(modelItem => item.Option2)" />
+                    @Html.DisplayFor(modelItem => item.Option2)
+                    <input type="radio" id="Option3" name=" @Html.DisplayFor(modelItem => item.QuestionID)" class="rb" value="   @Html.DisplayFor(modelItem => item.Option3)" />
+                    @Html.DisplayFor(modelItem => item.Option3)
+                    <input type="radio" id="Option4" name=" @Html.DisplayFor(modelItem => item.QuestionID)" class="rb" value="   @Html.DisplayFor(modelItem => item.Option4)" />
+                    @Html.DisplayFor(modelItem => item.Option4)
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label id="correctOption" name="@Html.DisplayFor(modelItem => item.QuestionID)" class="rb" style="display:none; color:forestgreen;"> <b>@Html.DisplayFor(modelItem => item.CorrectOption)</b></label>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button type="button" id="quizButton" class="btn-success" onclick="displayResult();">Submit</button>
+<label id="userAnswer"></label>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#quizButton").click(function () {
+            $(".rb").show();
+            $(".rb").attr("disabled", true);
+        });
+    });
+
+    function displayResult() {
+        document.getElementById("userAnswer").innerHTML = "";
+        var results = document.getElementsByTagName('input');
+        for (i = 0; i < results.length; i++) {
+            if (results[i].type == "radio") {
+                if (results[i].checked) {
+                    document.getElementById("userAnswer").innerHTML += "Question " + results[i].name + " )" + " Your selected answer is " + results[i].value + "<br/>";
+                }
+            }
+        }
+    }
+</script>
